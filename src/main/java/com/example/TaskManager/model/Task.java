@@ -1,7 +1,7 @@
 package com.example.TaskManager.model;
 
 import jakarta.persistence.*;
-
+	
 @Entity
 public class Task {
 	// Fields:
@@ -10,7 +10,7 @@ public class Task {
 	private Long id;
 	private String name;
 	private String email;
-	private String task;
+	private String assignment;
 	private String localDateString; // CHANGE THIS!!!!
 	// private int priority; //Remove
 	// private double status; //Remove
@@ -27,11 +27,11 @@ public class Task {
 	public Task() {
 	}
 
-	public Task(String name, String email, String task, String localDateString, Priority priority, Status status) {
+	public Task(String name, String email, String assignment, String localDateString, Priority priority, Status status) {
 		super();
 		this.name = name;
 		this.email = email;
-		this.task = task;
+		this.assignment = assignment;
 		this.localDateString = localDateString;
 		this.priority = priority;
 		this.status = status;
@@ -62,12 +62,12 @@ public class Task {
 		this.email = email;
 	}
 
-	public String getTask() {
-		return task;
+	public String getAssignment() {
+		return assignment;
 	}
 
-	public void setTask(String task) {
-		this.task = task;
+	public void setAssignment(String assignment) {
+		this.assignment = assignment;
 	}
 
 	public String getLocalDateString() {
@@ -97,10 +97,10 @@ public class Task {
 	@Override
 	public String toString() {
 		if (this.priority != null && this.status != null)
-			return "Task [id=" + id + ", name=" + name + ", email=" + email + ", task=" + task + ", localDateString="
+			return "Task [id=" + id + ", name=" + name + ", email=" + email + ", assignment=" + assignment + ", localDateString="
 					+ localDateString + ", priority=" + this.getPriority() + ", status=" + this.getStatus() + "]";
 		else
-			return "Task [id=" + id + ", name=" + name + ", email=" + email + ", task=" + task + ", localDateString="
+			return "Task [id=" + id + ", name=" + name + ", email=" + email + ", assignment=" + assignment + ", localDateString="
 					+ localDateString + "]";
 	}
 

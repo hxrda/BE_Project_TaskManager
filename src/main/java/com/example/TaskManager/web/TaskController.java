@@ -30,7 +30,7 @@ public class TaskController {
 	@Autowired
 	private StatusRepository srepository;
 
-	// ADD: Date repository??!! <<<<<<<-
+	// ->>>>>>>>>>>>>>>>>>>ADD: Date repository??!! <<<<<<<-
 
 	/* >>> Handle end points: <<< */
 
@@ -101,8 +101,10 @@ public class TaskController {
 
 	// EDIT by USER - form to edit/update only the status field:
 	@PreAuthorize("hasAuthority('USER')")
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/editStatus/{id}", method = RequestMethod.GET)
 	public String editFormUser(@PathVariable("id") Long taskId, Model model) {
+		//model.addAttribute("task", repository.findById(taskId));
+		//model.addAttribute("priorities", prepository.findAll());
 		model.addAttribute("statuses", srepository.findAll());
 		return "editstatus";
 	}

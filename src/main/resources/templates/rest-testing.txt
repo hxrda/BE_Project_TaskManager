@@ -1,0 +1,18 @@
+Search:
+curl http://localhost:8080/api/
+curl http://localhost:8080/api/tasks
+curl http://localhost:8080/api/priorities
+curl http://localhost:8080/api/statuses
+
+//// EDIT BELOW ////
+
+Add/Create:
+curl -H "Content-Type: application/json" -X POST -d '{"author":"William Shakespeare","title":"Macbeth","isbn":"454545-67","publicationYear":1623,"price":14.99}' http://localhost:8080/api/books
+
+Modify/Update:
+(case: id = 4)
+curl -X PUT http://localhost:8080/api/tasks/4 -H 'Content-type:application/json' -d '{"author":"Mary Shelley","title":"Frankenstein","isbn":"676776-45","publicationYear":1818,"price":5.99}'
+
+Delete:
+(case: id = 4)
+curl -X DELETE http://localhost:8080/api/tasks/4

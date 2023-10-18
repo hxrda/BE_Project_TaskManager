@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<title>Tasklist</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body>
+	<div class="container">
+
+		<div class="col-md-4">
+			<h1>Tasks</h1>
+		</div>
+
+		<!--Show authenticated username-->
+		<div class="col-md-4">
+			<span sec:authentication="name">Name</span>
+		</div>
+
+		<!--Logout-->
+		<div class="col-md-4" style="padding:20px 0">
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out" class="btn btn-sm btn-danger" />
+			</form>
+		</div>
+
+		<!--Task fields: (id), name, email, assignment, localDateString-->
+		<!--Priority fields: (id), value-->
+		<!--Status fields: (id), name-->
+		<table class="table table-striped">
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Task</th>
+				<th>Deadline</th>
+				<th>Priority</th>
+				<th>Status</th>
+				<th sec:authorize="hasAuthority('ADMIN')"> </th>
+				<th sec:authorize="hasAuthority('USER')"> </th>
+			</tr>
+			<tr th:each="task : ${tasks}">
+				<td th:text="${task.name}"></td>
+				<td th:text="${task.email}"></td>
+				<td th:text="${task.assignment}"></td>
+				<td th:text="${task.localDateString}"></td>
+				<td th:text="${task.priority.value}"></td>
+				<td th:text="${task.status.name}"></td>
+				<!--<td><a th:href="@{/delete/{id}(id=${task.id})}" class="btn btn-danger">Delete</a></td>-->
+				<!--<td><a th:href="@{/edit/{id}(id=${task.id})}" class="btn btn-primary">Edit</a></td>-->
+				<!--<td><a th:href="@{/editStatus/{id}(id=${task.id})}" class="btn btn-primary">Edit Status</a></td>-->
+
+				<!--Show functionalities only for ADMIN user role-->
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${task.id})}"
+						class="btn btn-xs btn-danger">Delete</a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${task.id})}"
+						class="btn btn-xs btn-primary">Edit</a></td>
+
+				<!--Show functionalities only for USER user role-->
+				<td sec:authorize="hasAuthority('USER')"><a th:href="@{/editStatus/{id}(id=${task.id})}"
+						class="btn btn-xs btn-primary">Edit Status</a></td>
+			</tr>
+		</table>
+
+		<!--Show functionality only to ADMIN user role-->
+		<div sec:authorize="hasAuthority('ADMIN')">
+			<a href="/add" class="btn btn-success">Add Task</a>
+		</div>
+
+		<!-- Alternatively: -->
+		<!--<button class="btn btn-success" type="button" onclick="window.location.href='/add'">Add Task</button>-->
+		<!--<a href="/add" class="btn btn-success">Add Task</a>-->
+	</div>
+</body>
+
+</html>
