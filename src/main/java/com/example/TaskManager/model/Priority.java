@@ -10,7 +10,7 @@ public class Priority {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long priorityId;
-	private int value;
+	private String value;
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "priority")
@@ -20,7 +20,7 @@ public class Priority {
 	public Priority() {
 	}
 
-	public Priority(int value) {
+	public Priority(String value) {
 		super();
 		this.value = value;
 	}
@@ -34,11 +34,11 @@ public class Priority {
 		this.priorityId = priorityId;
 	}
 
-	public int getValue() {
+	public String getValue() {
 		return value;
 	}
 
-	public void setValue(int value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 

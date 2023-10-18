@@ -6,6 +6,6 @@ import java.util.List;
 public interface PriorityRepository extends CrudRepository<Priority, Long> {
 
 	// Add methods:
-	List<Priority> findByValue(int value);
+	List<Priority> findByValue(String value);
 
 }

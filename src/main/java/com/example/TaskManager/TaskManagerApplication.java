@@ -3,10 +3,11 @@ package com.example.TaskManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.boot.CommandLineRunner;
+
 
 import com.example.TaskManager.model.AppUser;
 import com.example.TaskManager.model.AppUserRepository;
@@ -38,9 +39,9 @@ public class TaskManagerApplication {
 			// Alternatively: syso
 
 			log.info("save a couple of priority values");
-			prepository.save(new Priority(1));
-			prepository.save(new Priority(2));
-			prepository.save(new Priority(3));
+			prepository.save(new Priority("1"));
+			prepository.save(new Priority("2"));
+			prepository.save(new Priority("3"));
 
 			log.info("save a couple of statuses");
 			srepository.save(new Status("Pending"));
@@ -49,13 +50,13 @@ public class TaskManagerApplication {
 
 			log.info("save a couple of tasks");
 			trepository.save(new Task("John Doe", "jdoe@email.com", "Pay taxes", "2023-10-30",
-					prepository.findByValue(1).get(0), srepository.findByName("Pending").get(0)));
+					prepository.findByValue("1").get(0), srepository.findByName("Pending").get(0)));
 			trepository.save(new Task("Mary Sue", "msue@email.com", "Book trip", "2024-01-12",
-					prepository.findByValue(3).get(0), srepository.findByName("Reschedule").get(0)));
+					prepository.findByValue("3").get(0), srepository.findByName("Reschedule").get(0)));
 			trepository.save(new Task("Ellie Musk", "mmusk@email.com", "Science project", "2023-11-29",
-					prepository.findByValue(2).get(0), srepository.findByName("Pending").get(0)));
+					prepository.findByValue("2").get(0), srepository.findByName("Pending").get(0)));
 			trepository.save(new Task("Elton Musk", "emusk@email.com", "Violin competition", "2022-11-22",
-					prepository.findByValue(1).get(0), srepository.findByName("Completed").get(0)));
+					prepository.findByValue("1").get(0), srepository.findByName("Completed").get(0)));
 
 			// Create users: admin/admin, user/user
 			log.info("create a couple of users");
