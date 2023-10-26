@@ -30,7 +30,9 @@ public class TaskController {
 	@Autowired
 	private StatusRepository srepository;
 
-	// ->>>>>>>>>>>>>>>>>>>ADD: Date repository??!! <<<<<<<-
+	//Add this:
+	//@Autowired
+	//private TaskDateRepository drepository;
 
 	/* >>> Handle end points: <<< */
 
@@ -45,6 +47,10 @@ public class TaskController {
 	@RequestMapping(value = { "/", "/tasklist" })
 	public String listAllTasksThymeleaf(Model model) {
 		model.addAttribute("tasks", repository.findAll());
+		/// Change above into this:///
+		// List<Task> tasks =
+		/// repository.findByOrderByTaskDateLocalDateAscPriorityValueAsc();
+		// model.addAttribute("tasks", tasks);
 		return "tasklist";
 	}
 
@@ -52,6 +58,11 @@ public class TaskController {
 	@RequestMapping(value = "/tasks", method = RequestMethod.GET)
 	public @ResponseBody List<Task> listAllTasksRest() {
 		return (List<Task>) repository.findAll();
+		/// Change above into this:////
+		// return
+		/// (List<Task>)repository.findByOrderByTaskDateLocalDateAscPriorityValueAsc();
+		// or
+		// return repository.findByOrderByTaskDateLocalDateAscPriorityValueAsc();
 	}
 
 	/// Get 1 task by ID ///
@@ -103,8 +114,8 @@ public class TaskController {
 	@PreAuthorize("hasAuthority('USER')")
 	@RequestMapping(value = "/editStatus/{id}", method = RequestMethod.GET)
 	public String editFormUser(@PathVariable("id") Long taskId, Model model) {
-		//model.addAttribute("task", repository.findById(taskId));
-		//model.addAttribute("priorities", prepository.findAll());
+		// model.addAttribute("task", repository.findById(taskId));
+		// model.addAttribute("priorities", prepository.findAll());
 		model.addAttribute("statuses", srepository.findAll());
 		return "editstatus";
 	}

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.TaskManager.model.Status;
+import com.example.TaskManager.model.TaskStatus;
 import com.example.TaskManager.model.StatusRepository;
 
 @SpringBootTest(classes = TaskManagerApplication.class)
@@ -21,14 +21,14 @@ public class StatusRepositoryTest {
 
 	@Test
 	public void findByNameShouldReturnExistingStatusCategory() {
-		List<Status> statuses = srepository.findByName("Reschedule");
+		List<TaskStatus> statuses = srepository.findByStatusName("Reschedule");
 
 		assertThat(statuses).hasSize(1);
 	}
 
 	@Test
 	public void createNewStatus() {
-		Status status = new Status("Rejected");
+		TaskStatus status = new TaskStatus("Rejected");
 		srepository.save(status);
 		
 		assertThat(status.getStatusId()).isNotNull();
@@ -36,11 +36,11 @@ public class StatusRepositoryTest {
 
 	@Test
 	public void deleteStatus() {
-		List<Status> statuses = srepository.findByName("Completed");
-		Status status = statuses.get(0);
+		List<TaskStatus> statuses = srepository.findByStatusName("Completed");
+		TaskStatus status = statuses.get(0);
 		srepository.delete(status);
 
-		List<Status> newStatuses = srepository.findByName("Completed");
+		List<TaskStatus> newStatuses = srepository.findByStatusName("Completed");
 		assertThat(newStatuses).hasSize(0);
 	}
 

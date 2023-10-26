@@ -5,24 +5,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
-public class Priority {
+public class TaskPriority {
 	// Fields:
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long priorityId;
-	private String value;
+	private String priorityValue;
 
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "priority")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskPriority")
 	private List<Task> tasks; // List: because 1 priority category can have many task
 
 	// Constructors:
-	public Priority() {
+	public TaskPriority() {
 	}
 
-	public Priority(String value) {
+	public TaskPriority(String priorityValue) {
 		super();
-		this.value = value;
+		this.priorityValue = priorityValue;
 	}
 
 	// Methods:
@@ -35,11 +35,11 @@ public class Priority {
 	}
 
 	public String getValue() {
-		return value;
+		return priorityValue;
 	}
 
 	public void setValue(String value) {
-		this.value = value;
+		this.priorityValue = value;
 	}
 
 	public List<Task> getTasks() {
@@ -52,7 +52,7 @@ public class Priority {
 
 	@Override
 	public String toString() {
-		return "Priority [priorityId=" + priorityId + ", value=" + value + ", tasks=" + tasks + "]";
+		return "Priority [priorityId=" + priorityId + ", value=" + priorityValue + ", tasks=" + tasks + "]";
 	}
 
 }

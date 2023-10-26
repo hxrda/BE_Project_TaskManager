@@ -27,8 +27,8 @@
 		</div>
 
 		<!--Task fields: (id), name, email, assignment, localDateString-->
-		<!--Priority fields: (id), value-->
-		<!--Status fields: (id), name-->
+		<!--Priority fields: (id), priorityValue-->
+		<!--Status fields: (id), statusName-->
 		<table class="table table-striped">
 			<tr>
 				<th>Name</th>
@@ -38,6 +38,7 @@
 				<th>Priority</th>
 				<th>Status</th>
 				<th sec:authorize="hasAuthority('ADMIN')"> </th>
+				<th sec:authorize="hasAuthority('ADMIN')"> </th>
 				<th sec:authorize="hasAuthority('USER')"> </th>
 			</tr>
 			<tr th:each="task : ${tasks}">
@@ -45,8 +46,8 @@
 				<td th:text="${task.email}"></td>
 				<td th:text="${task.assignment}"></td>
 				<td th:text="${task.localDateString}"></td>
-				<td th:text="${task.priority.value}"></td>
-				<td th:text="${task.status.name}"></td>
+				<td th:text="${task.taskPriority.priorityValue}"></td>
+				<td th:text="${task.taskStatus.statusName}"></td>
 				<!--<td><a th:href="@{/delete/{id}(id=${task.id})}" class="btn btn-danger">Delete</a></td>-->
 				<!--<td><a th:href="@{/edit/{id}(id=${task.id})}" class="btn btn-primary">Edit</a></td>-->
 				<!--<td><a th:href="@{/editStatus/{id}(id=${task.id})}" class="btn btn-primary">Edit Status</a></td>-->

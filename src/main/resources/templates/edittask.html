@@ -40,14 +40,14 @@
 			<div style="clear: both; display: block; height: 10px;"></div>
 
 			<label for="priolist">Priority</label>
-			<select id="priolist" th:field="*{priority.priorityId}" class="form-control">
-				<option th:each="priority: ${priorities}" th:value="${priority.priorityId}" th:text="${priority.value}">
+			<select id="priolist" th:field="*{taskPriority.priorityId}" class="form-control">
+				<option th:each="priority: ${priorities}" th:value="${priority.priorityId}" th:text="${priority.priorityValue}">
 				</option>
 			</select>
 
 			<label for="statlist">Status</label>
-			<select id="statlist" th:field="*{status.statusId}" class="form-control">
-				<option th:each="status: ${statuses}" th:value="${status.statusId}" th:text="${status.name}">
+			<select id="statlist" th:field="*{taskStatus.statusId}" class="form-control">
+				<option th:each="status: ${statuses}" th:value="${status.statusId}" th:text="${status.statusName}">
 				</option>
 			</select>
 

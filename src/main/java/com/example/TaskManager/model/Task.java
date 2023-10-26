@@ -17,24 +17,31 @@ public class Task {
 
 	@ManyToOne
 	@JoinColumn(name = "priorityId")
-	private Priority priority;
+	private TaskPriority taskPriority;
 
 	@ManyToOne
 	@JoinColumn(name = "statusId")
-	private Status status;
+	private TaskStatus taskStatus;
+	
+	///CHANGE date INTO THIS:////
+	
+	@ManyToOne
+	@JoinColumn(name = "taskDateId")
+	private TaskDate taskDate;
+
 
 	// Constructors:
 	public Task() {
 	}
 
-	public Task(String name, String email, String assignment, String localDateString, Priority priority, Status status) {
+	public Task(String name, String email, String assignment, String localDateString, TaskPriority taskPriority, TaskStatus taskStatus) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.assignment = assignment;
 		this.localDateString = localDateString;
-		this.priority = priority;
-		this.status = status;
+		this.taskPriority = taskPriority;
+		this.taskStatus = taskStatus;
 	}
 
 	// Methods:
@@ -78,27 +85,35 @@ public class Task {
 		this.localDateString = localDateString;
 	}
 
-	public Priority getPriority() {
-		return priority;
+	public TaskPriority getTaskPriority() {
+		return taskPriority;
 	}
 
-	public void setPriority(Priority priority) {
-		this.priority = priority;
+	public void setTaskPriority(TaskPriority priority) {
+		this.taskPriority = priority;
 	}
 
-	public Status getStatus() {
-		return status;
+	public TaskStatus getTaskStatus() {
+		return taskStatus;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setTaskStatus(TaskStatus status) {
+		this.taskStatus = status;
 	}
 
+	public TaskDate getTaskDate() {
+		return taskDate;
+	}
+
+	public void setTaskDate(TaskDate taskDate) {
+		this.taskDate = taskDate;
+	}
+	
 	@Override
 	public String toString() {
-		if (this.priority != null && this.status != null)
+		if (this.taskPriority != null && this.taskStatus != null)
 			return "Task [id=" + id + ", name=" + name + ", email=" + email + ", assignment=" + assignment + ", localDateString="
-					+ localDateString + ", priority=" + this.getPriority() + ", status=" + this.getStatus() + "]";
+					+ localDateString + ", priority=" + this.getTaskPriority() + ", status=" + this.getTaskStatus() + "]";
 		else
 			return "Task [id=" + id + ", name=" + name + ", email=" + email + ", assignment=" + assignment + ", localDateString="
 					+ localDateString + "]";

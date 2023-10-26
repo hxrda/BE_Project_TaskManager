@@ -5,24 +5,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
-public class Status {
+public class TaskStatus {
 	// Fields:
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long statusId;
-	private String name;
+	private String statusName;
 
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "status")
-	private List<Task> tasks; // List: because 1 status category can have many task
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskStatus")
+	private List<Task> tasks; // List: because 1 status category can have many tasks
 
 	// Constructors:
-	public Status() {
+	public TaskStatus() {
 	}
 
-	public Status(String name) {
+	public TaskStatus(String statusName) {
 		super();
-		this.name = name;
+		this.statusName = statusName;
 	}
 
 	// Methods:
@@ -34,12 +34,12 @@ public class Status {
 		this.statusId = statusId;
 	}
 
-	public String getName() {
-		return name;
+	public String getStatusName() {
+		return statusName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setStatusName(String name) {
+		this.statusName = name;
 	}
 
 	public List<Task> getTasks() {
@@ -52,7 +52,7 @@ public class Status {
 
 	@Override
 	public String toString() {
-		return "Status [statusId=" + statusId + ", name=" + name + ", tasks=" + tasks + "]";
+		return "Status [statusId=" + statusId + ", name=" + statusName + ", tasks=" + tasks + "]";
 	}
 
 }

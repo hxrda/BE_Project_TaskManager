@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.TaskManager.model.Priority;
+import com.example.TaskManager.model.TaskPriority;
 import com.example.TaskManager.model.PriorityRepository;
-import com.example.TaskManager.model.Status;
+import com.example.TaskManager.model.TaskStatus;
 import com.example.TaskManager.model.StatusRepository;
 import com.example.TaskManager.model.Task;
 import com.example.TaskManager.model.TaskRepository;
@@ -39,10 +39,10 @@ public class TaskRepositoryTest {
 
 	@Test
 	public void findByNameShouldReturnAssignment() {
-		List<Task> tasks = repository.findByName("John Doe");
+		List<Task> tasks = repository.findByName("Ellie Musk");
 
 		assertThat(tasks).hasSize(1);
-		assertThat(tasks.get(0).getAssignment()).isEqualTo("Pay taxes");
+		assertThat(tasks.get(0).getAssignment()).isEqualTo("Science project");
 	}
 
 	@Test
@@ -55,13 +55,13 @@ public class TaskRepositoryTest {
 
 	@Test
 	public void createNewTask() {
-		Priority priority = new Priority("2");
-		prepository.save(priority);
+		TaskPriority taskPriority = new TaskPriority("2");
+		prepository.save(taskPriority);
 
-		Status status = new Status("Reschedule");
-		srepository.save(status);
+		TaskStatus taskStatus = new TaskStatus("Reschedule");
+		srepository.save(taskStatus);
 
-		Task task = new Task("Mary Shelley", "ms@email.com", "Write novel", "1818-10-17", priority, status);
+		Task task = new Task("Mary Shelley", "ms@email.com", "Write novel", "1818-10-17", taskPriority, taskStatus);
 		repository.save(task);
 		assertThat(task.getId()).isNotNull();
 	}

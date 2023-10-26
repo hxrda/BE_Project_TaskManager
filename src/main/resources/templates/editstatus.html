@@ -11,7 +11,7 @@
 	<!--Priority fields: (id), value-->
 	<!--Status fields: (id), name-->
 
-	<h1>Edit task</h1>
+	<h1>Edit status</h1>
 	<div>
 		<form th:object="${task}" th:action="@{../save}" action="#" method="post">
 
@@ -24,8 +24,8 @@
 			-->
 
 			<label for="statlist">Status</label>
-			<select id="statlist" th:field="*{status.statusId}" class="form-control">
-				<option th:each="status: ${statuses}" th:value="${status.statusId}" th:text="${status.name}">
+			<select id="statlist" th:field="*{taskStatus.statusId}" class="form-control">
+				<option th:each="status: ${statuses}" th:value="${status.statusId}" th:text="${status.statusName}">
 				</option>
 			</select>
 
