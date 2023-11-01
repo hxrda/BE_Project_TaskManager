@@ -89,16 +89,16 @@ public class Task {
 		return taskPriority;
 	}
 
-	public void setTaskPriority(TaskPriority priority) {
-		this.taskPriority = priority;
+	public void setTaskPriority(TaskPriority taskPriority) {
+		this.taskPriority = taskPriority;
 	}
 
 	public TaskStatus getTaskStatus() {
 		return taskStatus;
 	}
 
-	public void setTaskStatus(TaskStatus status) {
-		this.taskStatus = status;
+	public void setTaskStatus(TaskStatus taskStatus) {
+		this.taskStatus = taskStatus;
 	}
 
 	public TaskDate getTaskDate() {
@@ -113,7 +113,7 @@ public class Task {
 	public String toString() {
 		if (this.taskPriority != null && this.taskStatus != null)
 			return "Task [id=" + id + ", name=" + name + ", email=" + email + ", assignment=" + assignment + ", localDateString="
-					+ localDateString + ", priority=" + this.getTaskPriority() + ", status=" + this.getTaskStatus() + "]";
+					+ localDateString + ", taskPriority=" + this.getTaskPriority() + ", taskStatus=" + this.getTaskStatus() + "]";
 		else
 			return "Task [id=" + id + ", name=" + name + ", email=" + email + ", assignment=" + assignment + ", localDateString="
 					+ localDateString + "]";

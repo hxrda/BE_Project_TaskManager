@@ -27,8 +27,10 @@
 		</div>
 
 		<!--Task fields: (id), name, email, assignment, localDateString-->
-		<!--Priority fields: (id), priorityValue-->
-		<!--Status fields: (id), statusName-->
+		<!--TaskPriority fields: (priorityId), priorityValue-->
+		<!--TaskStatus fields: (statusId), statusName-->
+		<!-- !!! TBA - TaskDate fields: (taskDateId), localDate  !!! -->
+		
 		<table class="table table-striped">
 			<tr>
 				<th>Name</th>
@@ -48,6 +50,8 @@
 				<td th:text="${task.localDateString}"></td>
 				<td th:text="${task.taskPriority.priorityValue}"></td>
 				<td th:text="${task.taskStatus.statusName}"></td>
+				
+				<!--Old Buttons:-->
 				<!--<td><a th:href="@{/delete/{id}(id=${task.id})}" class="btn btn-danger">Delete</a></td>-->
 				<!--<td><a th:href="@{/edit/{id}(id=${task.id})}" class="btn btn-primary">Edit</a></td>-->
 				<!--<td><a th:href="@{/editStatus/{id}(id=${task.id})}" class="btn btn-primary">Edit Status</a></td>-->

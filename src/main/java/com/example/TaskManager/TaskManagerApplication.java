@@ -28,9 +28,9 @@ public class TaskManagerApplication {
 	}
 
 	/* >>> Entity field information <<< */
-	// Book fields: (id), name, email, task, localDateString
-	// Priority fields: (id), value (1-3)
-	// Status fields: (id), name
+	// Book fields: (id), name, email, assignment, localDateString
+	// Priority fields: (priorityId), priorityValue (1-3)
+	// Status fields: (statusId), statusName
 
 	@Bean
 	public CommandLineRunner taskDemo(TaskRepository trepository, PriorityRepository prepository,
@@ -69,9 +69,9 @@ public class TaskManagerApplication {
 
 			// These cause errors for some reason:
 			/*
-			 * log.info("fetch all books"); for (Book book : brepository.findAll()) {
-			 * log.info(book.toString()); } log.info("fetch all books by author"); for (Book
-			 * book : brepository.findByAuthor("author")) { log.info(book.toString()); }
+			 * log.info("fetch all tasks"); for (Task task : trepository.findAll()) {
+			 * log.info(task.toString()); } log.info("fetch all tasks by name"); for (Task
+			 * task : trepository.findByName("name")) { log.info(task.toString()); }
 			 */
 
 		};

@@ -47,10 +47,12 @@ public class TaskController {
 	@RequestMapping(value = { "/", "/tasklist" })
 	public String listAllTasksThymeleaf(Model model) {
 		model.addAttribute("tasks", repository.findAll());
+		
 		/// Change above into this:///
 		// List<Task> tasks =
 		/// repository.findByOrderByTaskDateLocalDateAscPriorityValueAsc();
 		// model.addAttribute("tasks", tasks);
+		
 		return "tasklist";
 	}
 
@@ -73,7 +75,9 @@ public class TaskController {
 	}
 
 	/// Modify Tasks ///
+	
 	// THYMELEAF:
+	
 	// ADD new tasks - display add form:
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/add")
@@ -84,23 +88,36 @@ public class TaskController {
 		return "addtask";
 	}
 
-	// SAVE new task - save functionality for add form (end point where the form(s)
-	// will be submitted):
+	// SAVE new task
+	// save functionality for add form (end point where the form(s) will be submitted):
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveNewTask(Task task) {
 		repository.save(task);
 		return "redirect:tasklist";
 	}
+	
+	/*
+	// Test
+	// Save endpoint for status edit only
+	@RequestMapping(value = "/saveStatus", method = RequestMethod.POST)
+	public String saveNewStatus(Task task) {
+		repository.save(task);
+		return "redirect:tasklist";
+	}
+	*/
+	
 
-	// DELETE existing task - button functionality on front page:
+	// DELETE existing task 
+	// button functionality on front page:
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteTask(@PathVariable("id") Long taskId, Model model) {
 		repository.deleteById(taskId);
-		return "redirect:../booklist";
+		return "redirect:../tasklist";
 	}
 
-	// EDIT by ADMIN - form to edit/update tasks, all fields:
+	// EDIT by ADMIN 
+	// form to edit/update tasks, all fields:
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String editFormAdmin(@PathVariable("id") Long taskId, Model model) {
@@ -110,12 +127,13 @@ public class TaskController {
 		return "edittask";
 	}
 
-	// EDIT by USER - form to edit/update only the status field:
+	// EDIT by USER
+	// form to edit/update only the status field:
 	@PreAuthorize("hasAuthority('USER')")
 	@RequestMapping(value = "/editStatus/{id}", method = RequestMethod.GET)
 	public String editFormUser(@PathVariable("id") Long taskId, Model model) {
-		// model.addAttribute("task", repository.findById(taskId));
-		// model.addAttribute("priorities", prepository.findAll());
+		model.addAttribute("task", repository.findById(taskId));   //remove or needed?
+		model.addAttribute("priorities", prepository.findAll());   //remove or needed?
 		model.addAttribute("statuses", srepository.findAll());
 		return "editstatus";
 	}

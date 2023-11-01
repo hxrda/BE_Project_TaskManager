@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class TaskDate {
 	// Fields:
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long taskDateId;
 	private LocalDate localDate;
 

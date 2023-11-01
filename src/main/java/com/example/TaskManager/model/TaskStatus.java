@@ -38,8 +38,8 @@ public class TaskStatus {
 		return statusName;
 	}
 
-	public void setStatusName(String name) {
-		this.statusName = name;
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
 	}
 
 	public List<Task> getTasks() {
@@ -52,7 +52,7 @@ public class TaskStatus {
 
 	@Override
 	public String toString() {
-		return "Status [statusId=" + statusId + ", name=" + statusName + ", tasks=" + tasks + "]";
+		return "Status [statusId=" + statusId + ", statusName=" + statusName + ", tasks=" + tasks + "]";
 	}
 
 }

@@ -34,12 +34,12 @@ public class TaskPriority {
 		this.priorityId = priorityId;
 	}
 
-	public String getValue() {
+	public String getPriorityValue() {
 		return priorityValue;
 	}
 
-	public void setValue(String value) {
-		this.priorityValue = value;
+	public void setPriorityValue(String priorityValue) {
+		this.priorityValue = priorityValue;
 	}
 
 	public List<Task> getTasks() {
