@@ -45,6 +45,7 @@
 				<option th:each="priority: ${priorities}" th:value="${priority.priorityId}" th:text="${priority.priorityValue}">
 				</option>
 			</select>
+			<div style="clear: both; display: block; height: 10px;"></div>
 
 			<label for="statlist">Status</label>
 			<select id="statlist" th:field="*{taskStatus.statusId}" class="form-control">

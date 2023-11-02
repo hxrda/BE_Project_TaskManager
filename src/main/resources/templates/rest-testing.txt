@@ -1,20 +1,19 @@
-Search:
+<<< SEARCH: >>>:
 curl http://localhost:8080/api/
 curl http://localhost:8080/api/tasks
 curl http://localhost:8080/api/priorities
 curl http://localhost:8080/api/statuses
+curl http://localhost:8080/api/deadlines     <-add
 
-//// EDIT BELOW ////
-
-<<< Add/Create: >>>
+<<< ADD/CREATE: >>>
 curl -H "Content-Type: application/json" -X POST -d '{"name":"Michael Caloz","email":"mc@email.com","assignment":"Concert","localDateString":"2023-12-12"}' http://localhost:8080/api/tasks
 
 
-<<< Modify/Update: >>>
-(case: id = 4)
-curl -X PUT http://localhost:8080/api/tasks/4 -H 'Content-type:application/json' -d '{"name":"Ragna Lothbrok","email":"rgn@email.com","assignment":"Shopping","localDateString":"2022-11-10"}'
+<<< MODIFY/UPDATE: >>>
+(case: id = 5)
+curl -X PUT http://localhost:8080/api/tasks/5 -H 'Content-type:application/json' -d '{"name":"Ragna Lothbrok","email":"rgn@email.com","assignment":"Shopping","localDateString":"2022-11-10"}'
 
-<<<< Delete: >>>>
-(case: id = 4)
-curl -X DELETE http://localhost:8080/api/tasks/4
+<<<< DELETE: >>>>
+(case: id = 5)
+curl -X DELETE http://localhost:8080/api/tasks/5
 

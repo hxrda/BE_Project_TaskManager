@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,9 +31,9 @@ public class TaskController {
 	@Autowired
 	private StatusRepository srepository;
 
-	//Add this:
-	//@Autowired
-	//private TaskDateRepository drepository;
+	// Add this:
+	// @Autowired
+	// private TaskDateRepository drepository;
 
 	/* >>> Handle end points: <<< */
 
@@ -47,12 +48,12 @@ public class TaskController {
 	@RequestMapping(value = { "/", "/tasklist" })
 	public String listAllTasksThymeleaf(Model model) {
 		model.addAttribute("tasks", repository.findAll());
-		
+
 		/// Change above into this:///
 		// List<Task> tasks =
 		/// repository.findByOrderByTaskDateLocalDateAscPriorityValueAsc();
 		// model.addAttribute("tasks", tasks);
-		
+
 		return "tasklist";
 	}
 
@@ -75,9 +76,9 @@ public class TaskController {
 	}
 
 	/// Modify Tasks ///
-	
+
 	// THYMELEAF:
-	
+
 	// ADD new tasks - display add form:
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/add")
@@ -89,25 +90,25 @@ public class TaskController {
 	}
 
 	// SAVE new task
-	// save functionality for add form (end point where the form(s) will be submitted):
+	// ADMIN role
+	// save functionality for add form (end point where the form(s) will be
+	// submitted):
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveNewTask(Task task) {
 		repository.save(task);
 		return "redirect:tasklist";
 	}
-	
-	/*
+
 	// Test
-	// Save endpoint for status edit only
+	// SAVE new status only
+	// USER role
 	@RequestMapping(value = "/saveStatus", method = RequestMethod.POST)
-	public String saveNewStatus(Task task) {
+	public String saveUserStatusEdit(Task task) {
 		repository.save(task);
 		return "redirect:tasklist";
 	}
-	*/
-	
 
-	// DELETE existing task 
+	// DELETE existing task
 	// button functionality on front page:
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
@@ -116,7 +117,7 @@ public class TaskController {
 		return "redirect:../tasklist";
 	}
 
-	// EDIT by ADMIN 
+	// EDIT by ADMIN
 	// form to edit/update tasks, all fields:
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -131,9 +132,9 @@ public class TaskController {
 	// form to edit/update only the status field:
 	@PreAuthorize("hasAuthority('USER')")
 	@RequestMapping(value = "/editStatus/{id}", method = RequestMethod.GET)
-	public String editFormUser(@PathVariable("id") Long taskId, Model model) {
-		model.addAttribute("task", repository.findById(taskId));   //remove or needed?
-		model.addAttribute("priorities", prepository.findAll());   //remove or needed?
+	public String editStatusFormUser(@PathVariable("id") Long taskId, Model model) {
+		model.addAttribute("task", repository.findById(taskId));
+		model.addAttribute("priorities", prepository.findAll()); // remove or needed?
 		model.addAttribute("statuses", srepository.findAll());
 		return "editstatus";
 	}
