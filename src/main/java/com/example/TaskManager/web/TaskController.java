@@ -89,8 +89,7 @@ public class TaskController {
 		return "addtask";
 	}
 
-	// SAVE new task
-	// ADMIN role
+	// SAVE new or edited task
 	// save functionality for add form (end point where the form(s) will be
 	// submitted):
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -102,11 +101,13 @@ public class TaskController {
 	// Test
 	// SAVE new status only
 	// USER role
+	/*
 	@RequestMapping(value = "/saveStatus", method = RequestMethod.POST)
 	public String saveUserStatusEdit(Task task) {
 		repository.save(task);
 		return "redirect:tasklist";
 	}
+	*/
 
 	// DELETE existing task
 	// button functionality on front page:
@@ -134,7 +135,7 @@ public class TaskController {
 	@RequestMapping(value = "/editStatus/{id}", method = RequestMethod.GET)
 	public String editStatusFormUser(@PathVariable("id") Long taskId, Model model) {
 		model.addAttribute("task", repository.findById(taskId));
-		model.addAttribute("priorities", prepository.findAll()); // remove or needed?
+		model.addAttribute("priorities", prepository.findAll()); 
 		model.addAttribute("statuses", srepository.findAll());
 		return "editstatus";
 	}

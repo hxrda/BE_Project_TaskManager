@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Tasklist</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<!--Task fields: (id), name, email, assignment, localDateString-->
+	<!--Priority fields: (priorityId), priorityValue-->
+	<!--Status fields: (statusId), statusName-->
+	<!-- !!! TBA - TaskDate fields: (taskDateId), localDate  !!! -->
+
+	<h1>Edit status</h1>
+	<div>
+		<form th:object="${task}" th:action="@{../saveStatus}" action="#" method="post">
+
+			<input type="hidden" id="id" th:field="*{id}" />
+
+			<!--
+			<label for="id"></label>
+			<input type="hidden" id="id" th:field="*{id}" readonly="readonly" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			-->
+
+			<label for="statlist">Status</label>
+			<select id="statlist" th:field="*{taskStatus.statusId}" class="form-control">
+				<option th:each="status: ${statuses}" th:value="${status.statusId}" th:text="${status.statusName}">
+				</option>
+			</select>
+			
+
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="submit" value="Save"></input>
+		</form>
+	</div>
+</body>
+
+</html>
