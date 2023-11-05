@@ -4,6 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface TaskDateRepository extends CrudRepository<TaskDate, Long> {
 
@@ -11,5 +12,8 @@ public interface TaskDateRepository extends CrudRepository<TaskDate, Long> {
 	List<TaskDate> findByOrderByDeadlineAsc();
 	
 	List<TaskDate> findByDeadline(LocalDate deadline);
+	
+	//?
+	Optional<TaskDate> findById (Long taskDateId);
 
 }

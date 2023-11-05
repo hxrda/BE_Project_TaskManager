@@ -41,15 +41,23 @@
 			<input type="text" id="localDateString" th:field="*{localDateString}" />
 			<div style="clear: both; display: block; height: 10px;"></div>
 			-->
+
+            <!--
+			<label for="deadline">Deadline (yyyy-MM-dd)</label>
+			<input type="text" id="deadline" name="deadline" th:field="*{taskDate.taskDateId}" th:value="${deadline.taskDateId}"
+				th:text="${deadline.deadline}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			-->
 			
 			<label for="deadline">Deadline (yyyy-MM-dd)</label>
-            <input type="text" id="deadline" name="deadline"/>
-            <div style="clear: both; display: block; height: 10px;"></div>
-			
+			<input type="text" id="deadline" name="deadline" th:value="${deadline}"/>
+			<div style="clear: both; display: block; height: 10px;"></div>
+
 
 			<label for="priolist">Priority</label>
 			<select id="priolist" th:field="*{taskPriority.priorityId}" class="form-control">
-				<option th:each="priority: ${priorities}" th:value="${priority.priorityId}" th:text="${priority.priorityValue}">
+				<option th:each="priority: ${priorities}" th:value="${priority.priorityId}"
+					th:text="${priority.priorityValue}">
 				</option>
 			</select>
 			<div style="clear: both; display: block; height: 10px;"></div>

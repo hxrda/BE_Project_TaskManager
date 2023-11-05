@@ -145,6 +145,7 @@ public class TaskController {
 		return "redirect:../tasklist";
 	}
 
+	
 	// EDIT by ADMIN
 	// form to edit/update tasks, all fields:
 	@PreAuthorize("hasAuthority('ADMIN')")
@@ -153,10 +154,21 @@ public class TaskController {
 		model.addAttribute("task", repository.findById(taskId));
 		
 		//model.addAttribute("deadlines", drepository.findAll());
+		//model.addAttribute("deadlines", drepository.findAll());
+		//model.addAttribute("deadline", drepository.findById(Long taskDateId));
+		//Optional<TaskDate> findById (Long taskDateId);
 		
-		model.addAttribute("deadlines", drepository.findAll());
 		model.addAttribute("priorities", prepository.findAll());
 		model.addAttribute("statuses", srepository.findAll());
+		
+		//Get the task-associated date:
+		Optional<Task> taskOptional = repository.findById(taskId);
+		Task taskById = taskOptional.get();
+		TaskDate taskDate = taskById.getTaskDate();
+		
+		model.addAttribute("deadline", taskDate.getDeadline());
+		
+		
 		return "edittask";
 	}
 
@@ -169,9 +181,22 @@ public class TaskController {
 		
 		//model.addAttribute("deadlines", drepository.findAll());
 		
-		model.addAttribute("deadlines", drepository.findAll());
+		//model.addAttribute("deadline", drepository.findById(taskDateId));	
+		//model.addAttribute("deadlines", drepository.findAll());
+		
 		model.addAttribute("priorities", prepository.findAll()); 
 		model.addAttribute("statuses", srepository.findAll());
+		
+		model.addAttribute("priorities", prepository.findAll());
+		model.addAttribute("statuses", srepository.findAll());
+		
+		//Get the task-associated date:
+		Optional<Task> taskOptional = repository.findById(taskId);
+		Task taskById = taskOptional.get();
+		TaskDate taskDate = taskById.getTaskDate();
+		
+		model.addAttribute("deadline", taskDate.getDeadline());
+		
 		return "editstatus";
 	}
 

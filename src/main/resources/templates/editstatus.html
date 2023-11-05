@@ -42,9 +42,15 @@
 			<div style="clear: both; display: block; height: 10px;"></div>
 			-->
 			
+			<!--
 			<label hidden="hidden" for="deadline">Deadline (yyyy-MM-dd)</label>
             <input type="hidden" id="deadline" name="deadline" />
-            <!--<div style="clear: both; display: block; height: 10px;"></div>-->
+            <div style="clear: both; display: block; height: 10px;"></div>
+            -->
+            
+            <label hidden="hidden" for="deadline">Deadline (yyyy-MM-dd)</label>
+			<input type="hidden" id="deadline" name="deadline" th:value="${deadline}"/>
+			<!--<div style="clear: both; display: block; height: 10px;"></div>-->
 
 			<label hidden="hidden" for="priolist">Priority</label>
 			<select hidden="hidden" id="priolist" th:field="*{taskPriority.priorityId}" class="form-control">
