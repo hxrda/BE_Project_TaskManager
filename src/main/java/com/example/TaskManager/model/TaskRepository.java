@@ -9,9 +9,14 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
 	List<Task> findByName(String name);
 
 	List<Task> findByEmail(String email);
-	
+
 	List<Task> findByAssignment(String assignment);
 
 	// Add: "find by date"?
+	List<Task> findByOrderByTaskDateDeadlineAsc();
+	
+	//List<Task> findByOrderByTaskDateDeadlineAscPriorityAsc();
+	
+	List<Task> findByOrderByTaskDateDeadlineAscTaskPriorityPriorityValueAsc();
 
 }

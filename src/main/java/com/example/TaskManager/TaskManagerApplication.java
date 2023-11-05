@@ -1,5 +1,7 @@
 package com.example.TaskManager;
 
+import java.time.LocalDate;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +18,8 @@ import com.example.TaskManager.model.PriorityRepository;
 import com.example.TaskManager.model.TaskStatus;
 import com.example.TaskManager.model.StatusRepository;
 import com.example.TaskManager.model.Task;
+import com.example.TaskManager.model.TaskDate;
+import com.example.TaskManager.model.TaskDateRepository;
 import com.example.TaskManager.model.TaskRepository;
 
 @SpringBootApplication
@@ -34,7 +38,7 @@ public class TaskManagerApplication {
 
 	@Bean
 	public CommandLineRunner taskDemo(TaskRepository trepository, PriorityRepository prepository,
-			StatusRepository srepository, AppUserRepository urepository) {
+			StatusRepository srepository, AppUserRepository urepository, TaskDateRepository drepository) {
 		return (args) -> {
 			// Alternatively: syso
 
@@ -47,8 +51,37 @@ public class TaskManagerApplication {
 			srepository.save(new TaskStatus("Pending"));
 			srepository.save(new TaskStatus("Completed"));
 			srepository.save(new TaskStatus("Reschedule"));
+			
+			log.info("save a couple of dates");
+			/*
+			drepository.save(new TaskDate("2023-12-15"));
+			drepository.save(new TaskDate("2024-01-02"));
+			drepository.save(new TaskDate("2023-11-30"));
+			*/
+			LocalDate taskDate1 = LocalDate.parse("2023-12-15");
+			LocalDate taskDate2 = LocalDate.parse("2024-01-02");
+			LocalDate taskDate3 = LocalDate.parse("2023-11-30");
+			LocalDate taskDate4 = LocalDate.parse("2023-12-16");
+			//String stringDate = "2023-12-16";
+			drepository.save(new TaskDate(taskDate1));
+			drepository.save(new TaskDate(taskDate2));
+			drepository.save(new TaskDate(taskDate3));
+			drepository.save(new TaskDate(taskDate4));
 
 			log.info("save a couple of tasks");
+			trepository.save(new Task("John Doe", "jdoe@email.com", "Pay taxes", drepository.findByDeadline(taskDate1).get(0),
+					prepository.findByPriorityValue("1").get(0), srepository.findByStatusName("Pending").get(0)));
+			
+			trepository.save(new Task("Mary Sue", "msue@email.com", "Book trip", drepository.findByDeadline(taskDate2).get(0),
+					prepository.findByPriorityValue("3").get(0), srepository.findByStatusName("Reschedule").get(0)));
+			
+			trepository.save(new Task("Ellie Musk", "mmusk@email.com", "Science project", drepository.findByDeadline(taskDate3).get(0),
+					prepository.findByPriorityValue("2").get(0), srepository.findByStatusName("Pending").get(0)));
+			
+			trepository.save(new Task("Elton Musk", "emusk@email.com", "Violin competition", drepository.findByDeadline(taskDate4).get(0),
+					prepository.findByPriorityValue("1").get(0), srepository.findByStatusName("Completed").get(0)));
+			
+			/*
 			trepository.save(new Task("John Doe", "jdoe@email.com", "Pay taxes", "2023-10-30",
 					prepository.findByPriorityValue("1").get(0), srepository.findByStatusName("Pending").get(0)));
 			trepository.save(new Task("Mary Sue", "msue@email.com", "Book trip", "2024-01-12",
@@ -57,6 +90,7 @@ public class TaskManagerApplication {
 					prepository.findByPriorityValue("2").get(0), srepository.findByStatusName("Pending").get(0)));
 			trepository.save(new Task("Elton Musk", "emusk@email.com", "Violin competition", "2022-11-22",
 					prepository.findByPriorityValue("1").get(0), srepository.findByStatusName("Completed").get(0)));
+			*/
 
 			// Create users: admin/admin, user/user
 			log.info("create a couple of users");

@@ -1,7 +1,7 @@
 package com.example.TaskManager.model;
 
 import jakarta.persistence.*;
-	
+
 @Entity
 public class Task {
 	// Fields:
@@ -11,9 +11,15 @@ public class Task {
 	private String name;
 	private String email;
 	private String assignment;
-	private String localDateString; // CHANGE THIS!!!!
+	// private String localDateString; //Remove
 	// private int priority; //Remove
 	// private double status; //Remove
+	
+	//@DateTimeFormat(pattern = "yyyy-MM-dd") // Set the expected date format?
+	
+	@ManyToOne
+	@JoinColumn(name = "taskDateId")
+	private TaskDate taskDate;
 
 	@ManyToOne
 	@JoinColumn(name = "priorityId")
@@ -22,27 +28,29 @@ public class Task {
 	@ManyToOne
 	@JoinColumn(name = "statusId")
 	private TaskStatus taskStatus;
-	
-	///CHANGE date INTO THIS:////
-	
-	@ManyToOne
-	@JoinColumn(name = "taskDateId")
-	private TaskDate taskDate;
-
 
 	// Constructors:
 	public Task() {
 	}
 
-	public Task(String name, String email, String assignment, String localDateString, TaskPriority taskPriority, TaskStatus taskStatus) {
+	public Task(String name, String email, String assignment, TaskDate taskDate, TaskPriority taskPriority,
+			TaskStatus taskStatus) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.assignment = assignment;
-		this.localDateString = localDateString;
+		this.taskDate = taskDate;
 		this.taskPriority = taskPriority;
 		this.taskStatus = taskStatus;
 	}
+
+	/*
+	 * public Task(String name, String email, String assignment, String
+	 * localDateString, TaskPriority taskPriority, TaskStatus taskStatus) { super();
+	 * this.name = name; this.email = email; this.assignment = assignment;
+	 * this.localDateString = localDateString; this.taskPriority = taskPriority;
+	 * this.taskStatus = taskStatus; }
+	 */
 
 	// Methods:
 	public Long getId() {
@@ -77,13 +85,12 @@ public class Task {
 		this.assignment = assignment;
 	}
 
-	public String getLocalDateString() {
-		return localDateString;
-	}
-
-	public void setLocalDateString(String localDateString) {
-		this.localDateString = localDateString;
-	}
+	/*
+	 * public String getLocalDateString() { return localDateString; }
+	 * 
+	 * public void setLocalDateString(String localDateString) { this.localDateString
+	 * = localDateString; }
+	 */
 
 	public TaskPriority getTaskPriority() {
 		return taskPriority;
@@ -108,15 +115,25 @@ public class Task {
 	public void setTaskDate(TaskDate taskDate) {
 		this.taskDate = taskDate;
 	}
-	
+
 	@Override
 	public String toString() {
-		if (this.taskPriority != null && this.taskStatus != null)
-			return "Task [id=" + id + ", name=" + name + ", email=" + email + ", assignment=" + assignment + ", localDateString="
-					+ localDateString + ", taskPriority=" + this.getTaskPriority() + ", taskStatus=" + this.getTaskStatus() + "]";
+		if (this.taskPriority != null && this.taskStatus != null && this.taskDate != null)
+			return "Task [id=" + id + ", name=" + name + ", email=" + email + ", assignment=" + assignment
+					+ ", taskDate=" + this.getTaskDate() + ", taskPriority=" + this.getTaskPriority() + ", taskStatus="
+					+ this.getTaskStatus() + "]";
 		else
-			return "Task [id=" + id + ", name=" + name + ", email=" + email + ", assignment=" + assignment + ", localDateString="
-					+ localDateString + "]";
+			return "Task [id=" + id + ", name=" + name + ", email=" + email + ", assignment=" + assignment + "]";
 	}
+
+	/*
+	 * public String toString() { if (this.taskPriority != null && this.taskStatus
+	 * != null) return "Task [id=" + id + ", name=" + name + ", email=" + email +
+	 * ", assignment=" + assignment + ", localDateString=" + localDateString +
+	 * ", taskPriority=" + this.getTaskPriority() + ", taskStatus=" +
+	 * this.getTaskStatus() + "]"; else return "Task [id=" + id + ", name=" + name +
+	 * ", email=" + email + ", assignment=" + assignment + ", localDateString=" +
+	 * localDateString + "]"; }
+	 */
 
 }

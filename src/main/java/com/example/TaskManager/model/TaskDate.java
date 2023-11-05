@@ -11,7 +11,9 @@ public class TaskDate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long taskDateId;
-	private LocalDate localDate;
+	private LocalDate deadline;
+	
+	//@DateTimeFormat(pattern = "yyyy-MM-dd") // Set the expected date format?
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskDate")
@@ -21,9 +23,15 @@ public class TaskDate {
 	public TaskDate() {
 	}
 
-	public TaskDate(LocalDate localDate) {
+	public TaskDate(LocalDate deadline) {
 		super();
-		this.localDate = localDate;
+		this.deadline = deadline;
+	}
+
+	// Constructor that accepts a string date and converts it to LocalDate
+	public TaskDate(String stringDate) {
+		super();
+		this.deadline = LocalDate.parse(stringDate);
 	}
 
 	// Methods:
@@ -35,12 +43,12 @@ public class TaskDate {
 		this.taskDateId = taskDateId;
 	}
 
-	public LocalDate getLocalDate() {
-		return localDate;
+	public LocalDate getDeadline() {
+		return deadline;
 	}
 
-	public void setLocalDate(LocalDate localDate) {
-		this.localDate = localDate;
+	public void setDeadline(LocalDate deadline) {
+		this.deadline = deadline;
 	}
 
 	public List<Task> getTasks() {
@@ -53,7 +61,7 @@ public class TaskDate {
 
 	@Override
 	public String toString() {
-		return "TaskDate [taskDateId=" + taskDateId + ", localDate=" + localDate + ", tasks=" + tasks + "]";
+		return "TaskDate [taskDateId=" + taskDateId + ", deadline=" + deadline + ", tasks=" + tasks + "]";
 	}
 
 }

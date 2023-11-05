@@ -47,7 +47,8 @@
 				<td th:text="${task.name}"></td>
 				<td th:text="${task.email}"></td>
 				<td th:text="${task.assignment}"></td>
-				<td th:text="${task.localDateString}"></td>
+				<!--<td th:text="${task.taskDate.deadline}"></td>-->
+				<td th:text="${#temporals.format(task.taskDate.deadline, 'yyyy-MM-dd')}">
 				<td th:text="${task.taskPriority.priorityValue}"></td>
 				<td th:text="${task.taskStatus.statusName}"></td>
 				

@@ -36,9 +36,15 @@
 			<input type="hidden" id="assignment" th:field="*{assignment}" />
 			<!--<div style="clear: both; display: block; height: 10px;"></div>-->
 
+            <!--
 			<label hidden="hidden" for="localDateString">Deadline (yyyy-mm-dd)</label>
 			<input type="hidden" id="localDateString" th:field="*{localDateString}" />
-			<!--<div style="clear: both; display: block; height: 10px;"></div>-->
+			<div style="clear: both; display: block; height: 10px;"></div>
+			-->
+			
+			<label hidden="hidden" for="deadline">Deadline (yyyy-MM-dd)</label>
+            <input type="hidden" id="deadline" name="deadline" />
+            <!--<div style="clear: both; display: block; height: 10px;"></div>-->
 
 			<label hidden="hidden" for="priolist">Priority</label>
 			<select hidden="hidden" id="priolist" th:field="*{taskPriority.priorityId}" class="form-control">

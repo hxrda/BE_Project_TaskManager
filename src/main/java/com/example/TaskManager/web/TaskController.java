@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.TaskManager.model.PriorityRepository;
 import com.example.TaskManager.model.StatusRepository;
 import com.example.TaskManager.model.Task;
+import com.example.TaskManager.model.TaskDate;
+import com.example.TaskManager.model.TaskDateRepository;
 import com.example.TaskManager.model.TaskRepository;
 
 @Controller
@@ -31,9 +34,8 @@ public class TaskController {
 	@Autowired
 	private StatusRepository srepository;
 
-	// Add this:
-	// @Autowired
-	// private TaskDateRepository drepository;
+	@Autowired
+	private TaskDateRepository drepository;
 
 	/* >>> Handle end points: <<< */
 
@@ -53,6 +55,10 @@ public class TaskController {
 		// List<Task> tasks =
 		/// repository.findByOrderByTaskDateLocalDateAscPriorityValueAsc();
 		// model.addAttribute("tasks", tasks);
+		
+		
+		List<Task> tasks = repository.findByOrderByTaskDateDeadlineAscTaskPriorityPriorityValueAsc();
+		model.addAttribute("tasks", tasks);
 
 		return "tasklist";
 	}
@@ -84,19 +90,40 @@ public class TaskController {
 	@RequestMapping(value = "/add")
 	public String addTasksForm(Model model) {
 		model.addAttribute("task", new Task());
+		
+		// model.addAttribute("deadline", LocalDate.now());
+		// model.addAttribute("deadlines", drepository.findAll());
+		// model.addAttribute("deadline", new TaskDate());
+		// model.addAttribute("deadlines", drepository.findAll());
+		
 		model.addAttribute("priorities", prepository.findAll());
 		model.addAttribute("statuses", srepository.findAll());
 		return "addtask";
 	}
 
+	
 	// SAVE new or edited task
 	// save functionality for add form (end point where the form(s) will be
 	// submitted):
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String saveNewTask(Task task, @RequestParam("deadline") String deadline) {
+		
+		TaskDate taskDate = new TaskDate(deadline); // Create a new TaskDate based on the deadline value
+		drepository.save(taskDate);  // Save task date
+		task.setTaskDate(taskDate);  // Set the associated TaskDate in the Task
+	    
+		repository.save(task);
+		return "redirect:tasklist";
+	}
+	
+	//oldSave:
+	/*
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveNewTask(Task task) {
 		repository.save(task);
 		return "redirect:tasklist";
 	}
+	/*
 
 	// Test
 	// SAVE new status only
@@ -124,6 +151,10 @@ public class TaskController {
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String editFormAdmin(@PathVariable("id") Long taskId, Model model) {
 		model.addAttribute("task", repository.findById(taskId));
+		
+		//model.addAttribute("deadlines", drepository.findAll());
+		
+		model.addAttribute("deadlines", drepository.findAll());
 		model.addAttribute("priorities", prepository.findAll());
 		model.addAttribute("statuses", srepository.findAll());
 		return "edittask";
@@ -135,6 +166,10 @@ public class TaskController {
 	@RequestMapping(value = "/editStatus/{id}", method = RequestMethod.GET)
 	public String editStatusFormUser(@PathVariable("id") Long taskId, Model model) {
 		model.addAttribute("task", repository.findById(taskId));
+		
+		//model.addAttribute("deadlines", drepository.findAll());
+		
+		model.addAttribute("deadlines", drepository.findAll());
 		model.addAttribute("priorities", prepository.findAll()); 
 		model.addAttribute("statuses", srepository.findAll());
 		return "editstatus";

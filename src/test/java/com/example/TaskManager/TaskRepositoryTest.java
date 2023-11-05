@@ -2,6 +2,7 @@ package com.example.TaskManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,8 @@ import com.example.TaskManager.model.PriorityRepository;
 import com.example.TaskManager.model.TaskStatus;
 import com.example.TaskManager.model.StatusRepository;
 import com.example.TaskManager.model.Task;
+import com.example.TaskManager.model.TaskDate;
+import com.example.TaskManager.model.TaskDateRepository;
 import com.example.TaskManager.model.TaskRepository;
 
 @SpringBootTest(classes = TaskManagerApplication.class)
@@ -28,6 +31,9 @@ public class TaskRepositoryTest {
 
 	@Autowired
 	private StatusRepository srepository;
+	
+	@Autowired
+	private TaskDateRepository drepository;
 
 	@Test
 	public void findByNameShouldReturnEmail() {
@@ -60,8 +66,12 @@ public class TaskRepositoryTest {
 
 		TaskStatus taskStatus = new TaskStatus("Reschedule");
 		srepository.save(taskStatus);
+		
+		LocalDate deadline = LocalDate.parse("2023-10-10");
+		TaskDate taskDate = new TaskDate (deadline);
+		drepository.save(taskDate);
 
-		Task task = new Task("Mary Shelley", "ms@email.com", "Write novel", "1818-10-17", taskPriority, taskStatus);
+		Task task = new Task("Mary Shelley", "ms@email.com", "Write novel", taskDate, taskPriority, taskStatus);
 		repository.save(task);
 		assertThat(task.getId()).isNotNull();
 	}
