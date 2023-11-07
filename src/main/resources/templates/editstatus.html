@@ -10,19 +10,13 @@
 	<!--Task fields: (id), name, email, assignment, localDateString-->
 	<!--Priority fields: (priorityId), priorityValue-->
 	<!--Status fields: (statusId), statusName-->
-	<!-- !!! TBA - TaskDate fields: (taskDateId), localDate  !!! -->
+	<!--TaskDate fields: (taskDateId), deadline-->
 
 	<h1>Edit Status</h1>
 	<div>
 		<form th:object="${task}" th:action="@{../save}" action="#" method="post">
 
 			<input type="hidden" id="id" th:field="*{id}" />
-
-			<!--
-			<label for="id"></label>
-			<input type="hidden" id="id" th:field="*{id}" readonly="readonly" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-			-->
 
 			<label hidden="hidden" for="name">Name</label>
 			<input type="hidden" id="name" th:field="*{name}" />
@@ -36,20 +30,8 @@
 			<input type="hidden" id="assignment" th:field="*{assignment}" />
 			<!--<div style="clear: both; display: block; height: 10px;"></div>-->
 
-            <!--
-			<label hidden="hidden" for="localDateString">Deadline (yyyy-mm-dd)</label>
-			<input type="hidden" id="localDateString" th:field="*{localDateString}" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-			-->
-			
-			<!--
 			<label hidden="hidden" for="deadline">Deadline (yyyy-MM-dd)</label>
-            <input type="hidden" id="deadline" name="deadline" />
-            <div style="clear: both; display: block; height: 10px;"></div>
-            -->
-            
-            <label hidden="hidden" for="deadline">Deadline (yyyy-MM-dd)</label>
-			<input type="hidden" id="deadline" name="deadline" th:value="${deadline}"/>
+			<input type="hidden" id="deadline" name="deadline" th:value="${deadline}" />
 			<!--<div style="clear: both; display: block; height: 10px;"></div>-->
 
 			<label hidden="hidden" for="priolist">Priority</label>

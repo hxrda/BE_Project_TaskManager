@@ -40,8 +40,8 @@ public class StatusRepositoryTest {
 		TaskStatus status = statuses.get(0);
 		srepository.delete(status);
 
-		List<TaskStatus> newStatuses = srepository.findByStatusName("Completed");
-		assertThat(newStatuses).hasSize(0);
+		List<TaskStatus> updatedStatuses = srepository.findByStatusName("Completed");
+		assertThat(updatedStatuses).hasSize(0);
 	}
 
 }

@@ -11,12 +11,7 @@ public class Task {
 	private String name;
 	private String email;
 	private String assignment;
-	// private String localDateString; //Remove
-	// private int priority; //Remove
-	// private double status; //Remove
-	
-	//@DateTimeFormat(pattern = "yyyy-MM-dd") // Set the expected date format?
-	
+
 	@ManyToOne
 	@JoinColumn(name = "taskDateId")
 	private TaskDate taskDate;
@@ -43,14 +38,6 @@ public class Task {
 		this.taskPriority = taskPriority;
 		this.taskStatus = taskStatus;
 	}
-
-	/*
-	 * public Task(String name, String email, String assignment, String
-	 * localDateString, TaskPriority taskPriority, TaskStatus taskStatus) { super();
-	 * this.name = name; this.email = email; this.assignment = assignment;
-	 * this.localDateString = localDateString; this.taskPriority = taskPriority;
-	 * this.taskStatus = taskStatus; }
-	 */
 
 	// Methods:
 	public Long getId() {
@@ -85,13 +72,6 @@ public class Task {
 		this.assignment = assignment;
 	}
 
-	/*
-	 * public String getLocalDateString() { return localDateString; }
-	 * 
-	 * public void setLocalDateString(String localDateString) { this.localDateString
-	 * = localDateString; }
-	 */
-
 	public TaskPriority getTaskPriority() {
 		return taskPriority;
 	}
@@ -125,15 +105,5 @@ public class Task {
 		else
 			return "Task [id=" + id + ", name=" + name + ", email=" + email + ", assignment=" + assignment + "]";
 	}
-
-	/*
-	 * public String toString() { if (this.taskPriority != null && this.taskStatus
-	 * != null) return "Task [id=" + id + ", name=" + name + ", email=" + email +
-	 * ", assignment=" + assignment + ", localDateString=" + localDateString +
-	 * ", taskPriority=" + this.getTaskPriority() + ", taskStatus=" +
-	 * this.getTaskStatus() + "]"; else return "Task [id=" + id + ", name=" + name +
-	 * ", email=" + email + ", assignment=" + assignment + ", localDateString=" +
-	 * localDateString + "]"; }
-	 */
 
 }

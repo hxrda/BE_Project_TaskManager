@@ -7,10 +7,10 @@
 </head>
 
 <body>
-	<!--Task fields: (id), name, email, assignment, localDateString(str)-->
+	<!--Task fields: (id), name, email, assignment-->
 	<!--Priority fields: (priorityId), priorityValue-->
 	<!--Status fields: (statusId), statusName-->
-	<!-- !!! TBA - TaskDate fields: (taskDateId), localDate  !!! -->
+	<!--TaskDate fields: (taskDateId), deadline-->
 
 	<h1>Add task</h1>
 	<div>
@@ -27,20 +27,8 @@
 			<input type="text" id="assignment" th:field="*{assignment}" />
 			<div style="clear: both; display: block; height: 10px;"></div>
 
-			<!--
-			<label for="localDateString">Deadline (yyyy-mm-dd)</label>
-			<input type="text" id="localDateString" th:field="*{localDateString}" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-			-->
-
-			<!--
 			<label for="deadline">Deadline (yyyy-MM-dd)</label>
-            <input type="text" id="deadline" th:field="*{taskDate.deadline}" />
-            <div style="clear: both; display: block; height: 10px;"></div>
-            -->
-
-			<label for="deadline">Deadline (yyyy-MM-dd)</label>
-			<input type="text" id="deadline" name="deadline"/>
+			<input type="text" id="deadline" name="deadline" />
 			<div style="clear: both; display: block; height: 10px;"></div>
 
 			<label for="priolist">Priority</label>

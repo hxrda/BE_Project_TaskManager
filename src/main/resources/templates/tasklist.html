@@ -29,8 +29,9 @@
 		<!--Task fields: (id), name, email, assignment, localDateString-->
 		<!--TaskPriority fields: (priorityId), priorityValue-->
 		<!--TaskStatus fields: (statusId), statusName-->
-		<!-- !!! TBA - TaskDate fields: (taskDateId), localDate  !!! -->
+		<!--TBA - TaskDate fields: (taskDateId), deadline-->
 		
+		<!--Display tasklist table-->
 		<table class="table table-striped">
 			<tr>
 				<th>Name</th>
@@ -47,36 +48,27 @@
 				<td th:text="${task.name}"></td>
 				<td th:text="${task.email}"></td>
 				<td th:text="${task.assignment}"></td>
-				<!--<td th:text="${task.taskDate.deadline}"></td>-->
 				<td th:text="${#temporals.format(task.taskDate.deadline, 'yyyy-MM-dd')}">
 				<td th:text="${task.taskPriority.priorityValue}"></td>
 				<td th:text="${task.taskStatus.statusName}"></td>
-				
-				<!--Old Buttons:-->
-				<!--<td><a th:href="@{/delete/{id}(id=${task.id})}" class="btn btn-danger">Delete</a></td>-->
-				<!--<td><a th:href="@{/edit/{id}(id=${task.id})}" class="btn btn-primary">Edit</a></td>-->
-				<!--<td><a th:href="@{/editStatus/{id}(id=${task.id})}" class="btn btn-primary">Edit Status</a></td>-->
 
-				<!--Show functionalities only for ADMIN user role-->
+				<!--Show buttons only for ADMIN user role-->
 				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${task.id})}"
 						class="btn btn-xs btn-danger">Delete</a></td>
 				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${task.id})}"
 						class="btn btn-xs btn-primary">Edit</a></td>
 
-				<!--Show functionalities only for USER user role-->
+				<!--Show button only for USER user role-->
 				<td sec:authorize="hasAuthority('USER')"><a th:href="@{/editStatus/{id}(id=${task.id})}"
 						class="btn btn-xs btn-primary">Edit Status</a></td>
 			</tr>
 		</table>
 
-		<!--Show functionality only to ADMIN user role-->
+		<!--Show button only to ADMIN user role-->
 		<div sec:authorize="hasAuthority('ADMIN')">
 			<a href="/add" class="btn btn-success">Add Task</a>
 		</div>
 
-		<!-- Alternatively: -->
-		<!--<button class="btn btn-success" type="button" onclick="window.location.href='/add'">Add Task</button>-->
-		<!--<a href="/add" class="btn btn-success">Add Task</a>-->
 	</div>
 </body>
 

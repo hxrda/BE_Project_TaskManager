@@ -13,7 +13,6 @@ public interface TaskDateRepository extends CrudRepository<TaskDate, Long> {
 	
 	List<TaskDate> findByDeadline(LocalDate deadline);
 	
-	//?
 	Optional<TaskDate> findById (Long taskDateId);
 
 }

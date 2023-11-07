@@ -19,8 +19,4 @@ class TaskManagerApplicationTests {
 		assertThat(controller).isNotNull();
 	}
 
-	/*
-	 * @Test void contextLoads() { }
-	 */
-
 }

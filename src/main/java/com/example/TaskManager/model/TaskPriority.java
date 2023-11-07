@@ -14,7 +14,7 @@ public class TaskPriority {
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskPriority")
-	private List<Task> tasks; // List: because 1 priority category can have many task
+	private List<Task> tasks;
 
 	// Constructors:
 	public TaskPriority() {

@@ -14,7 +14,7 @@ public class TaskStatus {
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskStatus")
-	private List<Task> tasks; // List: because 1 status category can have many tasks
+	private List<Task> tasks;
 
 	// Constructors:
 	public TaskStatus() {

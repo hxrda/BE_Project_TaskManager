@@ -58,6 +58,14 @@ public class TaskRepositoryTest {
 		assertThat(tasks).hasSize(1);
 		assertThat(tasks.get(0).getName()).isEqualTo("Mary Sue");
 	}
+	
+	@Test
+	public void findByDeadlineShouldReturnTask() {
+		List<Task> tasks = repository.findByTaskDateDeadline(LocalDate.parse("2023-11-30"));
+
+		assertThat(tasks).hasSize(1);
+		assertThat(tasks.get(0).getAssignment()).isEqualTo("Science project");
+	}
 
 	@Test
 	public void createNewTask() {
@@ -82,8 +90,8 @@ public class TaskRepositoryTest {
 		Task task = tasks.get(0);
 		repository.delete(task);
 		
-		List<Task> newTasks = repository.findByName("John Doe");
-		assertThat(newTasks).hasSize(0);
+		List<Task> updatedTasks = repository.findByName("John Doe");
+		assertThat(updatedTasks).hasSize(0);
 	}
 
 }

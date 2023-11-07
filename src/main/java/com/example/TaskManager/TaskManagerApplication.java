@@ -10,7 +10,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-
 import com.example.TaskManager.model.AppUser;
 import com.example.TaskManager.model.AppUserRepository;
 import com.example.TaskManager.model.TaskPriority;
@@ -32,65 +31,57 @@ public class TaskManagerApplication {
 	}
 
 	/* >>> Entity field information <<< */
-	// Book fields: (id), name, email, assignment, localDateString
+	// Task fields: (id), name, email, assignment
 	// Priority fields: (priorityId), priorityValue (1-3)
 	// Status fields: (statusId), statusName
+	// Date fields: (taskDateId), deadline
 
 	@Bean
 	public CommandLineRunner taskDemo(TaskRepository trepository, PriorityRepository prepository,
 			StatusRepository srepository, AppUserRepository urepository, TaskDateRepository drepository) {
 		return (args) -> {
-			// Alternatively: syso
 
+			// Create priorities:
 			log.info("save a couple of priority values");
 			prepository.save(new TaskPriority("1"));
 			prepository.save(new TaskPriority("2"));
 			prepository.save(new TaskPriority("3"));
 
+			// Create statuses:
 			log.info("save a couple of statuses");
 			srepository.save(new TaskStatus("Pending"));
 			srepository.save(new TaskStatus("Completed"));
 			srepository.save(new TaskStatus("Reschedule"));
-			
+
+			// Create dates/deadlines:
 			log.info("save a couple of dates");
-			/*
-			drepository.save(new TaskDate("2023-12-15"));
-			drepository.save(new TaskDate("2024-01-02"));
-			drepository.save(new TaskDate("2023-11-30"));
-			*/
 			LocalDate taskDate1 = LocalDate.parse("2023-12-15");
 			LocalDate taskDate2 = LocalDate.parse("2024-01-02");
 			LocalDate taskDate3 = LocalDate.parse("2023-11-30");
 			LocalDate taskDate4 = LocalDate.parse("2023-12-16");
-			//String stringDate = "2023-12-16";
+
 			drepository.save(new TaskDate(taskDate1));
 			drepository.save(new TaskDate(taskDate2));
 			drepository.save(new TaskDate(taskDate3));
 			drepository.save(new TaskDate(taskDate4));
 
+			// Create tasks:
 			log.info("save a couple of tasks");
-			trepository.save(new Task("John Doe", "jdoe@email.com", "Pay taxes", drepository.findByDeadline(taskDate1).get(0),
-					prepository.findByPriorityValue("1").get(0), srepository.findByStatusName("Pending").get(0)));
-			
-			trepository.save(new Task("Mary Sue", "msue@email.com", "Book trip", drepository.findByDeadline(taskDate2).get(0),
-					prepository.findByPriorityValue("3").get(0), srepository.findByStatusName("Reschedule").get(0)));
-			
-			trepository.save(new Task("Ellie Musk", "mmusk@email.com", "Science project", drepository.findByDeadline(taskDate3).get(0),
-					prepository.findByPriorityValue("2").get(0), srepository.findByStatusName("Pending").get(0)));
-			
-			trepository.save(new Task("Elton Musk", "emusk@email.com", "Violin competition", drepository.findByDeadline(taskDate4).get(0),
-					prepository.findByPriorityValue("1").get(0), srepository.findByStatusName("Completed").get(0)));
-			
-			/*
-			trepository.save(new Task("John Doe", "jdoe@email.com", "Pay taxes", "2023-10-30",
-					prepository.findByPriorityValue("1").get(0), srepository.findByStatusName("Pending").get(0)));
-			trepository.save(new Task("Mary Sue", "msue@email.com", "Book trip", "2024-01-12",
-					prepository.findByPriorityValue("3").get(0), srepository.findByStatusName("Reschedule").get(0)));
-			trepository.save(new Task("Ellie Musk", "mmusk@email.com", "Science project", "2023-11-29",
-					prepository.findByPriorityValue("2").get(0), srepository.findByStatusName("Pending").get(0)));
-			trepository.save(new Task("Elton Musk", "emusk@email.com", "Violin competition", "2022-11-22",
-					prepository.findByPriorityValue("1").get(0), srepository.findByStatusName("Completed").get(0)));
-			*/
+			trepository.save(new Task("John Doe", "jdoe@email.com", "Pay taxes",
+					drepository.findByDeadline(taskDate1).get(0), prepository.findByPriorityValue("1").get(0),
+					srepository.findByStatusName("Pending").get(0)));
+
+			trepository.save(new Task("Mary Sue", "msue@email.com", "Book trip",
+					drepository.findByDeadline(taskDate2).get(0), prepository.findByPriorityValue("3").get(0),
+					srepository.findByStatusName("Reschedule").get(0)));
+
+			trepository.save(new Task("Ellie Musk", "mmusk@email.com", "Science project",
+					drepository.findByDeadline(taskDate3).get(0), prepository.findByPriorityValue("2").get(0),
+					srepository.findByStatusName("Pending").get(0)));
+
+			trepository.save(new Task("Elton Musk", "emusk@email.com", "Violin competition",
+					drepository.findByDeadline(taskDate4).get(0), prepository.findByPriorityValue("1").get(0),
+					srepository.findByStatusName("Completed").get(0)));
 
 			// Create users: admin/admin, user/user
 			log.info("create a couple of users");
@@ -100,13 +91,6 @@ public class TaskManagerApplication {
 					"admin@email.com", "ADMIN");
 			urepository.save(user1);
 			urepository.save(user2);
-
-			// These cause errors for some reason:
-			/*
-			 * log.info("fetch all tasks"); for (Task task : trepository.findAll()) {
-			 * log.info(task.toString()); } log.info("fetch all tasks by name"); for (Task
-			 * task : trepository.findByName("name")) { log.info(task.toString()); }
-			 */
 
 		};
 	}

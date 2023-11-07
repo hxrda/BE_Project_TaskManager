@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +24,7 @@ import com.example.TaskManager.model.TaskRepository;
 @Controller
 public class TaskController {
 
-	/* >>> Link with repositories: <<< */
+	/* >>> Repositories: <<< */
 	@Autowired
 	private TaskRepository repository;
 
@@ -49,14 +49,7 @@ public class TaskController {
 	// THYMELEAF:
 	@RequestMapping(value = { "/", "/tasklist" })
 	public String listAllTasksThymeleaf(Model model) {
-		model.addAttribute("tasks", repository.findAll());
-
-		/// Change above into this:///
-		// List<Task> tasks =
-		/// repository.findByOrderByTaskDateLocalDateAscPriorityValueAsc();
-		// model.addAttribute("tasks", tasks);
-		
-		
+		// model.addAttribute("tasks", repository.findAll());
 		List<Task> tasks = repository.findByOrderByTaskDateDeadlineAscTaskPriorityPriorityValueAsc();
 		model.addAttribute("tasks", tasks);
 
@@ -67,11 +60,12 @@ public class TaskController {
 	@RequestMapping(value = "/tasks", method = RequestMethod.GET)
 	public @ResponseBody List<Task> listAllTasksRest() {
 		return (List<Task>) repository.findAll();
-		/// Change above into this:////
-		// return
-		/// (List<Task>)repository.findByOrderByTaskDateLocalDateAscPriorityValueAsc();
-		// or
-		// return repository.findByOrderByTaskDateLocalDateAscPriorityValueAsc();
+	}
+
+	// RESTFUL with sorting:
+	@RequestMapping(value = "/taskssorted", method = RequestMethod.GET)
+	public @ResponseBody List<Task> listAllSortedTasksRest() {
+		return (List<Task>) repository.findByOrderByTaskDateDeadlineAscTaskPriorityPriorityValueAsc();
 	}
 
 	/// Get 1 task by ID ///
@@ -90,54 +84,24 @@ public class TaskController {
 	@RequestMapping(value = "/add")
 	public String addTasksForm(Model model) {
 		model.addAttribute("task", new Task());
-		
-		// model.addAttribute("deadline", LocalDate.now());
-		// model.addAttribute("deadlines", drepository.findAll());
-		// model.addAttribute("deadline", new TaskDate());
-		// model.addAttribute("deadlines", drepository.findAll());
-		
 		model.addAttribute("priorities", prepository.findAll());
 		model.addAttribute("statuses", srepository.findAll());
 		return "addtask";
 	}
 
-	
-	// SAVE new or edited task
-	// save functionality for add form (end point where the form(s) will be
-	// submitted):
+	// SAVE new or edited task:
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveNewTask(Task task, @RequestParam("deadline") String deadline) {
-		
-		TaskDate taskDate = new TaskDate(deadline); // Create a new TaskDate based on the deadline value
-		drepository.save(taskDate);  // Save task date
-		task.setTaskDate(taskDate);  // Set the associated TaskDate in the Task
-	    
-		repository.save(task);
-		return "redirect:tasklist";
-	}
-	
-	//oldSave:
-	/*
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveNewTask(Task task) {
-		repository.save(task);
-		return "redirect:tasklist";
-	}
-	/*
 
-	// Test
-	// SAVE new status only
-	// USER role
-	/*
-	@RequestMapping(value = "/saveStatus", method = RequestMethod.POST)
-	public String saveUserStatusEdit(Task task) {
+		TaskDate taskDate = new TaskDate(deadline);
+		drepository.save(taskDate);
+		task.setTaskDate(taskDate);
+
 		repository.save(task);
 		return "redirect:tasklist";
 	}
-	*/
 
-	// DELETE existing task
-	// button functionality on front page:
+	// DELETE existing task:
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteTask(@PathVariable("id") Long taskId, Model model) {
@@ -145,58 +109,41 @@ public class TaskController {
 		return "redirect:../tasklist";
 	}
 
-	
 	// EDIT by ADMIN
-	// form to edit/update tasks, all fields:
+	// Form to edit/update all task fields:
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String editFormAdmin(@PathVariable("id") Long taskId, Model model) {
 		model.addAttribute("task", repository.findById(taskId));
-		
-		//model.addAttribute("deadlines", drepository.findAll());
-		//model.addAttribute("deadlines", drepository.findAll());
-		//model.addAttribute("deadline", drepository.findById(Long taskDateId));
-		//Optional<TaskDate> findById (Long taskDateId);
-		
 		model.addAttribute("priorities", prepository.findAll());
 		model.addAttribute("statuses", srepository.findAll());
-		
-		//Get the task-associated date:
+
+		// Get the task-associated date:
 		Optional<Task> taskOptional = repository.findById(taskId);
 		Task taskById = taskOptional.get();
 		TaskDate taskDate = taskById.getTaskDate();
-		
+
 		model.addAttribute("deadline", taskDate.getDeadline());
-		
-		
+
 		return "edittask";
 	}
 
 	// EDIT by USER
-	// form to edit/update only the status field:
+	// Form to edit/update only the status field:
 	@PreAuthorize("hasAuthority('USER')")
 	@RequestMapping(value = "/editStatus/{id}", method = RequestMethod.GET)
 	public String editStatusFormUser(@PathVariable("id") Long taskId, Model model) {
 		model.addAttribute("task", repository.findById(taskId));
-		
-		//model.addAttribute("deadlines", drepository.findAll());
-		
-		//model.addAttribute("deadline", drepository.findById(taskDateId));	
-		//model.addAttribute("deadlines", drepository.findAll());
-		
-		model.addAttribute("priorities", prepository.findAll()); 
-		model.addAttribute("statuses", srepository.findAll());
-		
 		model.addAttribute("priorities", prepository.findAll());
 		model.addAttribute("statuses", srepository.findAll());
-		
-		//Get the task-associated date:
+
+		// Get the task-associated date:
 		Optional<Task> taskOptional = repository.findById(taskId);
 		Task taskById = taskOptional.get();
 		TaskDate taskDate = taskById.getTaskDate();
-		
+
 		model.addAttribute("deadline", taskDate.getDeadline());
-		
+
 		return "editstatus";
 	}
 

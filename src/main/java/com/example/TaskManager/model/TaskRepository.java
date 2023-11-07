@@ -1,6 +1,8 @@
 package com.example.TaskManager.model;
 
 import org.springframework.data.repository.CrudRepository;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public interface TaskRepository extends CrudRepository<Task, Long> {
@@ -11,12 +13,11 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
 	List<Task> findByEmail(String email);
 
 	List<Task> findByAssignment(String assignment);
+	
+	List<Task> findByTaskDateDeadline(LocalDate taskDate);
 
-	// Add: "find by date"?
 	List<Task> findByOrderByTaskDateDeadlineAsc();
-	
-	//List<Task> findByOrderByTaskDateDeadlineAscPriorityAsc();
-	
+
 	List<Task> findByOrderByTaskDateDeadlineAscTaskPriorityPriorityValueAsc();
 
 }

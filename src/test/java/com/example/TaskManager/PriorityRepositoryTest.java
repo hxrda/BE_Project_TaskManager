@@ -40,8 +40,8 @@ public class PriorityRepositoryTest {
 		TaskPriority priority = priorities.get(0);
 		prepository.delete(priority);
 
-		List<TaskPriority> newPriorities = prepository.findByPriorityValue("3");
-		assertThat(newPriorities).hasSize(0);
+		List<TaskPriority> updatedPriorities = prepository.findByPriorityValue("3");
+		assertThat(updatedPriorities).hasSize(0);
 	}
 
 }
