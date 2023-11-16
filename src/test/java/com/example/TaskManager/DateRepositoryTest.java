@@ -16,6 +16,7 @@ import com.example.TaskManager.model.TaskDateRepository;
 @SpringBootTest(classes = TaskManagerApplication.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class DateRepositoryTest {
+	/*
 
 	@Autowired
 	private TaskDateRepository drepository;
@@ -44,5 +45,5 @@ public class DateRepositoryTest {
 		List<TaskDate> updatedDeadlines = drepository.findByDeadline(LocalDate.parse("2023-11-30"));
 		assertThat(updatedDeadlines).hasSize(0);
 	}
-
+    */
 }

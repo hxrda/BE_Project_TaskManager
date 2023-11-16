@@ -43,15 +43,15 @@ public class TaskManagerApplication {
 
 			// Create priorities:
 			log.info("save a couple of priority values");
-			prepository.save(new TaskPriority("1"));
-			prepository.save(new TaskPriority("2"));
-			prepository.save(new TaskPriority("3"));
+			//prepository.save(new TaskPriority("1"));
+			//prepository.save(new TaskPriority("2"));
+			//prepository.save(new TaskPriority("3"));
 
 			// Create statuses:
 			log.info("save a couple of statuses");
-			srepository.save(new TaskStatus("Pending"));
-			srepository.save(new TaskStatus("Completed"));
-			srepository.save(new TaskStatus("Reschedule"));
+			//srepository.save(new TaskStatus("Pending"));
+			//srepository.save(new TaskStatus("Completed"));
+			//srepository.save(new TaskStatus("Reschedule"));
 
 			// Create dates/deadlines:
 			log.info("save a couple of dates");
@@ -60,13 +60,14 @@ public class TaskManagerApplication {
 			LocalDate taskDate3 = LocalDate.parse("2023-11-30");
 			LocalDate taskDate4 = LocalDate.parse("2023-12-16");
 
-			drepository.save(new TaskDate(taskDate1));
-			drepository.save(new TaskDate(taskDate2));
-			drepository.save(new TaskDate(taskDate3));
-			drepository.save(new TaskDate(taskDate4));
+			//drepository.save(new TaskDate(taskDate1));
+			//drepository.save(new TaskDate(taskDate2));
+			//drepository.save(new TaskDate(taskDate3));
+			//drepository.save(new TaskDate(taskDate4));
 
 			// Create tasks:
 			log.info("save a couple of tasks");
+			/*
 			trepository.save(new Task("John Doe", "jdoe@email.com", "Pay taxes",
 					drepository.findByDeadline(taskDate1).get(0), prepository.findByPriorityValue("1").get(0),
 					srepository.findByStatusName("Pending").get(0)));
@@ -82,6 +83,7 @@ public class TaskManagerApplication {
 			trepository.save(new Task("Elton Musk", "emusk@email.com", "Violin competition",
 					drepository.findByDeadline(taskDate4).get(0), prepository.findByPriorityValue("1").get(0),
 					srepository.findByStatusName("Completed").get(0)));
+			*/
 
 			// Create users: admin/admin, user/user
 			log.info("create a couple of users");
@@ -89,8 +91,8 @@ public class TaskManagerApplication {
 					"user@email.com", "USER");
 			AppUser user2 = new AppUser("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C",
 					"admin@email.com", "ADMIN");
-			urepository.save(user1);
-			urepository.save(user2);
+			//urepository.save(user1);
+			//urepository.save(user2);
 
 		};
 	}
